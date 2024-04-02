@@ -1,7 +1,7 @@
 # ignore everything
-/*
+*
 # but not the gitignore file
 !.gitignore
-# and two folders
-!/Code
-!/LaTeX
+# and two files
+!thesis-CLC.pdf
+!thesis-CLC.tex
