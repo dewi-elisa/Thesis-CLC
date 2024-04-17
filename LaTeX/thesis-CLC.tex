@@ -1,31 +1,210 @@
-\documentclass{article}
-\usepackage{amssymb,amsmath}
+\documentclass[a4paper, 12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
 \usepackage{xcolor}
-\usepackage{array,graphicx,multirow}
+\usepackage{afterpage}
 
-\setlength\parindent{0pt}
+\usepackage{relsize}
+\usepackage{moresize}
 
-\title{Thesis BSc CLC}
-\author{Dewi Timman}
-\date{\today}
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\setcounter{secnumdepth}{3}
+% \setcounter{tocdepth}{3}
+
+% [CHANGE] The title of your thesis. If your thesis has a subtitle, then this
+% should appear right below the main title, in a smaller font.
+\newcommand{\theTitle}{The first sentence \\
+\vspace{0.5em}
+the second sentence}
+\newcommand{\theSubTitle}{a smaller subtitle}
+
+
+% [CHANGE] Your full name. In case of multiple names, you can include their
+% initials as well, e.g. "Robin G.J. van Achteren".
+\newcommand{\theAuthor}{Dewi E. Timman}
+
+% [CHANGE] Your student ID, as this has been assigned to you by the UvA
+% administration.
+\newcommand{\theStudentID}{12419273}
+
+% [CHANGE] The name of your supervisor(s). Include the titles of your supervisor(s),
+% as well as the initials for *all* of his/her first names.
+\newcommand{\theSupervisor}{Dr. R. G. Alhama} % Dr. Ing. L. Dorst
+
+% [CHANGE] The address of the institute at which your supervisor is working.
+% Be sure to include (1) institute (is appropriate), (2) faculty (if
+% appropriate), (3) organisation name, (4) organisation address (2 lines).
+\newcommand{\theInstitute}{
+Institute for Logic, Language and Computation \\ %Institute for Logic, Language and Computation
+Faculty of Science\\
+University of Amsterdam\\
+Science Park 107 \\ 
+1098 XG Amsterdam 
+}
+
+% [CHANGE] The semester in which you started your thesis.
+\newcommand{\theDate}{\today}
 
 \begin{document}
+\pagestyle{empty}
+\begin{center}
 
-\maketitle
+\vspace{2.5cm}
 
-% \section*{Abstract}
-% \textbf{Key words:} 
 
-\section{Introduction}
+\begin{Huge}
+% see definition at beginning of document
+\theTitle
+\end{Huge} \\
 
-% \subsection{Literature review}
+\vspace{0.5 cm}
 
-\section{Method}
+\begin{Large}
+\theSubTitle
+\end{Large}
 
-\section{Results}
+\vspace{1.5cm}
 
-\section{Conclusion}
+% see definition at beginning of document
+\theAuthor\\
+% see definition at beginning of document
+\theStudentID
 
-\section{Discussion}
+\vspace{1.5cm}
+
+% [DO NOT CHANGE]
+Bachelor thesis\\
+Credits: 12 EC
+
+\vspace{0.5cm}
+
+% [DO NOT CHANGE] The name of the educational programme.
+Bachelor \textit{Cognition, Language and Communication} \\
+\vspace{0.25cm}
+\includegraphics[width=0.075\paperwidth]{uva_logo} \\
+\vspace{0.1cm}
+
+% [DO NOT CHANGE] The address of the educational programme.
+University of Amsterdam\\
+Faculty of Humanities\\
+Spuistraat 134\\
+1012 VB Amsterdam
+
+\vspace{2cm}
+
+\emph{Supervisor}\\
+
+% see definition at beginning of document
+\theSupervisor
+
+\vspace{0.25cm}
+
+% see definition at beginning of document
+\theInstitute
+
+\vspace{1.0cm}
+
+% see definition at beginning of document
+\theDate
+
+\end{center}
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{plain} 
+
+\chapter*{Abstract}
+% % \textbf{Key words:} 
+% TODO
+
+% right place?
+\tableofcontents
+
+
+\chapter{Introduction}
+% Bring AI and linguistics/cognition together
+% How did language originate? How did it become so complex? \\
+% Language acquisition
+
+We are able to talk and communicate with each other. 
+Our Languages are very complex. 
+But how did language originate in the first place, and how do we acquire (new) languages? 
+
+\section{Literature review}
+% Important concepts/definitions: agent-based communication, referential communication games, word embedding vectors, LLMs
+
+When researching the emergence of language, \textcolor{orange}{usually \dots}
+To do this, it is important to define a few concepts. 
+First, about what kind of communication are we talking?
+Second, how can we research this communication? 
+And Third, in what state do we start the research?
+
+\subsection{Agent-based linguistic communication}
+% Communication between two or more agents.
+% The agents do not have any prior linguistic knowledge.
+% They need to solve a task.
+There are different kinds of communication. 
+In this research, there will be looked at agent-based linguistics communication. 
+This means that there is communication between two or more agents with the use of language. 
+\textcolor{orange}{Usually, that means the agents need to solve a task together.} 
+To solve the task, agents need to succesfully communicate to each other. 
+
+\subsection{Referential communication games}
+% In the context of agent-based communication: agents talk about objects or other entities in a specified world.
+% The agents need to come up with a language to commuicate about their world.
+To research this agent-based linguistic communication, agents usually participate into a referential communication game. 
+\textcolor{orange}{In such a game, agents talk about objects or other entities in a specified world.}
+To do this, they need to come up with a language to communicate about they world. 
+\textcolor{orange}{Usually, the agents do not have any prior linguistic knowledge.} 
+
+\subsection{Word embedding vectors}
+% Represent the world of an agent with embedding vectors from a LLM.
+In this research, however, agents do start with prior linguistics knowledge. 
+Agents use the word embedding vectors of a large language model (LLM) \textcolor{orange}{in order to \dots}
+
+\subsubsection{LLMs}
+% Which LLM is suitable?
+The LLM from which the word embedding vectors are chosen, is \textcolor{orange}{\dots. Because \dots}
+
+\section{Current research}
+Gap: Research with prior linguistic knowledge -> Do the agents do something with the structure/semantics already present in the word embedding vectors and can this say something about language emergence? \\
+RQ: What is the effect of word embeddding vectors from a language model on the emergence of agent-based linguistic communication from referential communication games?
+
+
+\chapter{Method}
+Programming a model and see how it behaves and what makes it behave like that. \\
+Dependent variable: output meassured by the model and its evaluation metric -> how often is the communication succesfull? \\
+Independent variable: input -> words/sentences \\
+
+\section{Data}
+What data? Data preprocessing? Data split?
+
+\subsection{(Data analyse)}
+What does the data look like? Is there a data imbalance?
+
+\section{Experimental Design}
+What is the setup?
+
+\section{Model description}
+What does the model look like? Which equations are used? Diagrams/pseudocode?
+
+\subsection{Hyperparameters}
+What are the hyperparameters?
+
+\section{(Optimization)}
+What optimizations were done?
+
+\chapter{Results}
+
+
+\chapter{Conclusion}
+
+
+\chapter{Discussion}
+% Bring AI and linguistics/cognition together
 
 \end{document}
