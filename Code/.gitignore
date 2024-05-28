@@ -1,3 +1,14 @@
+# ignore everything
+/*
+
+# but not the gitignore file
+!.gitignore
+
+# and some files
+!data.py
+!model.py
+!requirements.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,7 @@
+git+ssh://git@github.com/facebookresearch/EGG.git
+
+matplotlib
+torch
+numpy
+transformers
+pandas
