@@ -5,9 +5,14 @@
 !.gitignore
 
 # and some files
-!data.py
+!__init__.py
 !model.py
+!features.py
+!README.md
+!train.py
+!util.py
 !requirements.txt
+!code articles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
