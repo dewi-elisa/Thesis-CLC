@@ -134,7 +134,7 @@ Spuistraat 134\\
 
 \noindent We are able to talk and communicate with each other. 
 Our Languages are very complex. 
-But how did language originate in the first place, and how do we acquire (new) languages? 
+But how did language originate in the first place? %, and how do we acquire (new) languages? 
 \textcolor{orange}{In this paper...}
 
 \section{Literature review}
@@ -156,22 +156,29 @@ And Third, in what state do we start the research?
 % Communication between two or more agents.
 % The agents do not have any prior linguistic knowledge.
 % They need to solve a task.
-There are different kinds of communication.
-In this research, there will be looked at agent-based linguistics communication. 
+% There are different kinds of communication.
+In this research, there will be looked at agent-based linguistic communication. 
 This means that there is communication between two or more agents with the use of language. 
 Usually, that means the agents need to solve a task together. 
 \textcolor{orange}{bronnen! (maybe more information about the kind of tasks and/or the relevance)} 
 To solve the task, agents need to succesfully communicate to each other. 
 
+\citeA{ZubekJulian2023Mose} provides an overview of different games
+
+Abstract of \cite{VogtPaul2005Teoc}: The paper confirms previous findings that a transmission bottleneck serves as a pressure mechanism for the emergence of compositionality, and that a communication strategy for guessing the references of utterances aids in the development of qualitatively ‘good’ languages. In addition, the results show that the emerging languages reflect the structure of the world to a large extent and that the development of a semantics, together with a competitive selection mechanism, produces a faster emergence of compositionality than a predefined semantics without such a selection mechanism.
+
 \subsection{Referential communication games}
 % In the context of agent-based communication: agents talk about objects or other entities in a specified world.
 % The agents need to come up with a language to commuicate about their world.
-To research this agent-based linguistic communication, agents usually participate into a referential communication game. 
+To research this agent-based linguistic communication, agents can participate in a referential communication game. 
 In such a game, agents talk about objects or other entities in a specified world.
-\textcolor{orange}{bronnen! (ook meer informatie over de game zelf in relatie met taal, waarop berust de game?)}
-To do this, they need to come up with a language to communicate about they world. 
+To do this, they need to come up with a language to communicate about their world. 
 Usually, the agents do not have any prior linguistic knowledge.
+
+\textcolor{orange}{bronnen! (ook meer informatie over de game zelf in relatie met taal, waarop berust de game?)}
 \textcolor{orange}{bronnen!} 
+
+\citeA{LiYaoyiran2020ECPf} researched ref com games for machine translation.
 
 \subsection{Word embedding vectors}
 % Represent the world of an agent with embedding vectors from a LLM.
@@ -185,11 +192,13 @@ The LLM from which the word embedding vectors are chosen, is \textcolor{orange}{
 \section{Current research}
 Gap: Research with prior linguistic knowledge -> Do the agents do something with the structure/semantics already present in the word embedding vectors and can this say something about language emergence? \\
 RQ: What is the effect of word embeddding vectors from a language model on the emergence of agent-based linguistic communication from referential communication games? \textcolor{orange}{(simplify?)}
+SubRQ: Do the agents communicate succesfully?
+SubRQ: Do they communicate using compositionality?
 
 
 \chapter{Method}
 Programming a model and see how it behaves and what makes it behave like that. \\
-Dependent variable: output meassured by the model and its evaluation metric -> how often is the communication succesfull? \\
+Dependent variable: output meassured by the model and its evaluation metric -> how often is the communication succesfull? Compositionality metric \\
 Independent variable: input -> words/sentences \\
 
 \section{Data}
@@ -201,11 +210,16 @@ What does the data look like? Is there a data imbalance?
 \section{Experimental Design}
 What is the setup?
 
+In this research, agents particitpate in a referential communication game.
+The game is adapted from \citeA{LazaridouAngeliki2018EoLC} and is a variant of the Lewis signaling game \cite{lewis}.
+More formally, the game works as following:
+
 \section{Model description}
 What does the model look like? Which equations are used? Diagrams/pseudocode?
 
 \subsection{Hyperparameters}
 What are the hyperparameters?
+\cite{RitaMathieu2022ECGa} shows things about the loss and overfitting resulting in more compositionality.
 
 \section{(Optimization)}
 What optimizations were done?
