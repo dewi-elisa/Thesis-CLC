@@ -11,7 +11,7 @@ import numpy as np
 import torch
 from torch.utils import data
 
-from egg.zoo.objects_game.util import compute_binomial
+from util import compute_binomial
 
 
 class VectorsLoader:
