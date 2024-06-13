@@ -5,6 +5,25 @@
 
 import torch
 import torch.nn as nn
+from transformers import BertTokenizer, BertModel
+
+
+def get_bert_embedding(sentences, tokenizer, model):
+    print(sentences)
+    # Tokenize sentence
+    inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
+
+    # Get embeddings
+    with torch.no_grad():
+        outputs = model(**inputs)
+
+    # Get last hidden state
+    last_hidden_state = outputs.last_hidden_state
+
+    # Get sentence embeddings
+    cls_embedding = last_hidden_state[:, 0, :]
+
+    return cls_embedding
 
 
 class Sender(nn.Module):

@@ -12,6 +12,8 @@ import pathlib
 import numpy as np
 import torch.nn.functional as F
 import torch.utils.data
+from torch.distributions import Distribution
+Distribution.set_default_validate_args(False)
 
 import egg.core as core
 from egg.core.util import move_to
@@ -268,10 +270,14 @@ def main(params):
 
     print(baseline_msg)
 
-    sender = Sender(n_features=data_loader.n_features, n_hidden=opts.sender_hidden)
+    # sender = Sender(n_features=data_loader.n_features, n_hidden=opts.sender_hidden)
+    sender = Sender(n_features=768, n_hidden=opts.sender_hidden)
 
+    # receiver = Receiver(
+    #     n_features=data_loader.n_features, linear_units=opts.receiver_hidden
+    # )
     receiver = Receiver(
-        n_features=data_loader.n_features, linear_units=opts.receiver_hidden
+        n_features=768, linear_units=opts.receiver_hidden
     )
 
     if opts.mode.lower() == "gs":
@@ -313,6 +319,7 @@ def main(params):
         validation_data=validation_data,
         callbacks=callbacks,
     )
+    print('Training time!')
     trainer.train(n_epochs=opts.n_epochs)
 
     if opts.evaluate:

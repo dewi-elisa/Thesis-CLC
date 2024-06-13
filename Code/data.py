@@ -122,6 +122,7 @@ class VectorsLoader:
         )
         labels = np.array(target_idxs)
         targets = receiver_input[np.arange(self.batch_size), labels]
+
         return (
             torch.from_numpy(targets).float(),
             torch.from_numpy(labels).long(),

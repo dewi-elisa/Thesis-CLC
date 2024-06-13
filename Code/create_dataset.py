@@ -3,6 +3,8 @@ import os
 import numpy as np
 import pandas as pd
 import torch
+import random
+from transformers import BertTokenizer, BertModel
 
 
 def unpickle(file):
@@ -84,17 +86,36 @@ def get_df(directory):
     return images
 
 
-def get_data(df, n_distractors, n):
+def get_bert_embedding(sentences, tokenizer, model):
+    # Tokenize sentence
+    inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
+
+    # Get embeddings
+    with torch.no_grad():
+        outputs = model(**inputs)
+
+    # Get last hidden state
+    last_hidden_state = outputs.last_hidden_state
+
+    # Get sentence embeddings
+    cls_embedding = last_hidden_state[:, 0, :]
+
+    return cls_embedding
+
+
+def get_data(df, n_distractors, n, tokenizer, model):
     data_word = []
     data_image = []
     data_labels = []
 
     for _ in range(n):
-        samples = df.sample(n=n_distractors)
+        samples = df.sample(n=n_distractors+1)
 
         items_word = samples['label'].to_list()
+        with torch.no_grad():
+            items_word = get_bert_embedding(items_word, tokenizer, model)
         items_image = samples['image'].to_list()
-        labels = samples['id'].to_list()
+        labels = random.randrange(n_distractors+1)
 
         data_word.append(items_word)
         data_image.append(items_image)
@@ -103,15 +124,15 @@ def get_data(df, n_distractors, n):
     return data_word, data_image, data_labels
 
 
-def get_npz(df, n_distractors=4, n_train=3000, n_test=1000, n_valid=1000):
+def get_npz(df, tokenizer, model, n_distractors=4, n_train=3000, n_test=1000, n_valid=1000):
     print('Making a training set...')
-    train_word, train_image, train_labels = get_data(df, n_distractors, n_train)
+    train_word, train_image, train_labels = get_data(df, n_distractors, n_train, tokenizer, model)
     print('Making a test set...')
-    test_word, test_image, test_labels = get_data(df, n_distractors, n_test)
+    test_word, test_image, test_labels = get_data(df, n_distractors, n_test, tokenizer, model)
     print('Making a validation set...')
-    valid_word, valid_image, valid_labels = get_data(df, n_distractors, n_valid)
+    valid_word, valid_image, valid_labels = get_data(df, n_distractors, n_valid, tokenizer, model)
 
-    print('Save a .npz file for words...')
+    print('Saving a .npz file for words...')
     file_name = 'data/data_word_' + str(n_distractors) + '_distractors.npz'
     np.savez(file_name,
              train=train_word, train_labels=train_labels,
@@ -143,5 +164,7 @@ if __name__ == "__main__":
         df.to_pickle(directory + 'data.pkl')
 
     print('Making .npz files...')
-    get_npz(df)
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    model = BertModel.from_pretrained("bert-base-uncased")
+    get_npz(df, tokenizer, model)
     print('Done!')
