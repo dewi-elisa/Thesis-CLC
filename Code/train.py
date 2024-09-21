@@ -181,6 +181,13 @@ def get_params(params):
         help="Run egg/objects_game with pdb enabled",
     )
 
+    parser.add_argument(
+        "--images",
+        action="store_true",
+        default=False,
+        help="Indicates wether or not the input is images"
+    )
+
     args = core.init(parser, params)
 
     check_args(args)
@@ -271,13 +278,13 @@ def main(params):
     print(baseline_msg)
 
     # sender = Sender(n_features=data_loader.n_features, n_hidden=opts.sender_hidden)
-    sender = Sender(n_features=768, n_hidden=opts.sender_hidden)
+    sender = Sender(n_features=768, n_hidden=opts.sender_hidden, images=opts.images)
 
     # receiver = Receiver(
     #     n_features=data_loader.n_features, linear_units=opts.receiver_hidden
     # )
     receiver = Receiver(
-        n_features=768, linear_units=opts.receiver_hidden
+        n_features=768, linear_units=opts.receiver_hidden, images=opts.images
     )
 
     if opts.mode.lower() == "gs":
@@ -365,7 +372,8 @@ def main(params):
             msg_dict = {}
 
             output_msg = (
-                f"messages_{opts.perceptual_dimensions}_vocab_{opts.vocab_size}"
+                f"messages_{len(opts.perceptual_dimensions)}_vocab_{opts.vocab_size}"
+                # f"messages_{opts.perceptual_dimensions}_vocab_{opts.vocab_size}"
                 f"_maxlen_{opts.max_len}_bsize_{opts.batch_size}"
                 f"_n_distractors_{opts.n_distractors}_train_size_{opts.train_samples}"
                 f"_valid_size_{opts.validation_samples}_test_size_{opts.test_samples}"

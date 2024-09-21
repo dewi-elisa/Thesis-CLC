@@ -150,7 +150,7 @@ def get_npz(df, tokenizer, model, n_distractors=4, n_train=3000, n_test=1000, n_
 
 
 if __name__ == "__main__":
-    directory = '/Users/dewi-elisa/Documents/Uni/scriptie CLC/Thesis-CLC/Code/data/'
+    directory = '/Users/dewi-elisa/Documents/Uni - uva/scriptie CLC/Thesis-CLC/Code/data/'
 
     if os.path.isfile(directory + 'data.pkl'):
         print('Found the file!')
@@ -160,7 +160,7 @@ if __name__ == "__main__":
         directory = '/Users/dewi-elisa/Downloads/Imagenet32_train'
         df = get_df(directory)
 
-        directory = '/Users/dewi-elisa/Documents/Uni/scriptie CLC/Thesis-CLC/Code/data/'
+        directory = '/Users/dewi-elisa/Documents/Uni - uva/scriptie CLC/Thesis-CLC/Code/data/'
         df.to_pickle(directory + 'data.pkl')
 
     print('Making .npz files...')
