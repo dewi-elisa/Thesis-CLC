@@ -1,3 +1,4 @@
+% texcount -inc -total thesis-CLC.tex
 \documentclass[a4paper, 12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,17 +12,34 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 
+\usepackage{hyperref}
 \usepackage{apacite}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!50!black}
+}
+
+\usepackage{amsmath}
+\usepackage{caption}
+
+\usepackage{subcaption}
+\usepackage{multirow}
+
+\usepackage{booktabs}
+\usepackage{siunitx}
 
 \setcounter{secnumdepth}{3}
 % \setcounter{tocdepth}{3}
 
 % [CHANGE] The title of your thesis. If your thesis has a subtitle, then this
 % should appear right below the main title, in a smaller font.
-\newcommand{\theTitle}{The first sentence \\
+\newcommand{\theTitle}{Language emergence with \\
 \vspace{0.5em}
-the second sentence}
-\newcommand{\theSubTitle}{a smaller subtitle}
+embeddings from a language model}
+\newcommand{\theSubTitle}{}%Using BERT and referential communication games}
 
 
 % [CHANGE] Your full name. In case of multiple names, you can include their
@@ -51,6 +69,7 @@ Science Park 107 \\
 \newcommand{\theDate}{\today}
 
 \begin{document}
+\renewcommand{\APACrefYearMonthDay}[3]{\APACrefYear{#1}}
 \pagestyle{empty}
 \begin{center}
 
@@ -123,115 +142,31 @@ Spuistraat 134\\
 % % \textbf{Key words:} 
 % TODO
 
-% right place?
-\tableofcontents
+{
+    \hypersetup{linkcolor={black}}
+    \tableofcontents
+}
 
 
 \chapter{Introduction}
-% Bring AI and linguistics/cognition together
-% How did language originate? How did it become so complex? \\
-% Language acquisition
-
-\noindent We are able to talk and communicate with each other. 
-Our Languages are very complex. 
-But how did language originate in the first place? %, and how do we acquire (new) languages? 
-\textcolor{orange}{In this paper...}
-
-\section{Literature review}
-% Important concepts/definitions: agent-based communication, referential communication games, word embedding vectors, LLMs
-Structure: \\
-Language derives meaning from its use \cite{Wittgenstein}. \\
-Compositionality \\
--> agent-based referential communication games \\
-Complex language \\
--> vectors from LLM \\
-
-When researching the emergence of language, \textcolor{orange}{usually \dots (more information about what kind of research is done in the field of language emergence)}
-To do this, it is important to define a few concepts. 
-First, about what kind of communication are we talking?
-Second, how can we research this communication? 
-And Third, in what state do we start the research?
-
-\subsection{Agent-based linguistic communication}
-% Communication between two or more agents.
-% The agents do not have any prior linguistic knowledge.
-% They need to solve a task.
-% There are different kinds of communication.
-In this research, there will be looked at agent-based linguistic communication. 
-This means that there is communication between two or more agents with the use of language. 
-Usually, that means the agents need to solve a task together. 
-\textcolor{orange}{bronnen! (maybe more information about the kind of tasks and/or the relevance)} 
-To solve the task, agents need to succesfully communicate to each other. 
-
-\citeA{ZubekJulian2023Mose} provides an overview of different games
-
-Abstract of \cite{VogtPaul2005Teoc}: The paper confirms previous findings that a transmission bottleneck serves as a pressure mechanism for the emergence of compositionality, and that a communication strategy for guessing the references of utterances aids in the development of qualitatively ‘good’ languages. In addition, the results show that the emerging languages reflect the structure of the world to a large extent and that the development of a semantics, together with a competitive selection mechanism, produces a faster emergence of compositionality than a predefined semantics without such a selection mechanism.
-
-\subsection{Referential communication games}
-% In the context of agent-based communication: agents talk about objects or other entities in a specified world.
-% The agents need to come up with a language to commuicate about their world.
-To research this agent-based linguistic communication, agents can participate in a referential communication game. 
-In such a game, agents talk about objects or other entities in a specified world.
-To do this, they need to come up with a language to communicate about their world. 
-Usually, the agents do not have any prior linguistic knowledge.
-
-\textcolor{orange}{bronnen! (ook meer informatie over de game zelf in relatie met taal, waarop berust de game?)}
-\textcolor{orange}{bronnen!} 
-
-\citeA{LiYaoyiran2020ECPf} researched ref com games for machine translation.
-
-\subsection{Word embedding vectors}
-% Represent the world of an agent with embedding vectors from a LLM.
-In this research, however, agents do start with prior linguistics knowledge. 
-Agents use the word embedding vectors of a large language model (LLM) \textcolor{orange}{in order to \dots (more about the relevance of this research. Maybe some papers about research with grounded knowledge. \\ Why is it relevant to already have some prelinguistic knowledge? \\ - To see what agents do when they have some already present structure/semantics (structured compositional language is most likely to emerge when agents perceive the world as being structured \cite{LazaridouAngeliki2018EoLC}))}
-
-\subsubsection{LLMs}
-% Which LLM is suitable?
-The LLM from which the word embedding vectors are chosen, is \textcolor{orange}{\dots. Because \dots (maybe a short overview of the best choices of LLMs for this kind of task and why)}
-
-\section{Current research}
-Gap: Research with prior linguistic knowledge -> Do the agents do something with the structure/semantics already present in the word embedding vectors and can this say something about language emergence? \\
-RQ: What is the effect of word embedding vectors from a language model on the emergence of agent-based linguistic communication from referential communication games? \textcolor{orange}{(simplify?)}
-SubRQ: Do the agents communicate succesfully?
-SubRQ: Do they communicate using compositionality?
-
+\label{ch:introduction}
+\input{introduction.tex}
 
 \chapter{Method}
-Programming a model and see how it behaves and what makes it behave like that. \\
-Dependent variable: output meassured by the model and its evaluation metric -> how often is the communication succesfull? Compositionality metric \\
-Independent variable: input -> words/sentences \\
-
-\section{Data}
-What data? Data preprocessing? Data split?
-
-\subsection{(Data analysis)}
-What does the data look like? Is there a data imbalance?
-
-\section{Experimental Design}
-What is the setup?
-
-In this research, agents particitpate in a referential communication game.
-The game is adapted from \citeA{LazaridouAngeliki2018EoLC} and is a variant of the Lewis signaling game \cite{lewis}.
-More formally, the game works as following:
-
-\section{Model description}
-What does the model look like? Which equations are used? Diagrams/pseudocode?
-
-\subsection{Hyperparameters}
-What are the hyperparameters?
-\cite{RitaMathieu2022ECGa} shows things about the loss and overfitting resulting in more compositionality.
-
-\section{(Optimization)}
-What optimizations were done?
+\label{ch:method}
+\input{method.tex}
 
 \chapter{Results}
-
+\label{ch:results}
+\input{results.tex}
 
 \chapter{Conclusion}
-
+\label{ch:conclusion}
+\input{conclusion.tex}
 
 \chapter{Discussion}
-% Bring AI and linguistics/cognition together
+\label{ch:discussion}
+\input{discussion.tex}
 
 \bibliography{articles.bib}
 \bibliographystyle{apacite}
