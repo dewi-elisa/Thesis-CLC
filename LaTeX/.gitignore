@@ -1,7 +1,0 @@
-# ignore everything
-*
-# but not the gitignore file
-!.gitignore
-# and two files
-!thesis-CLC.pdf
-!thesis-CLC.tex
