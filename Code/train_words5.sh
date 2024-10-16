@@ -1,0 +1,32 @@
+#!/bin/bash
+
+python train.py \
+    --load_data_path='data\64x64 12000-4000-4000\data_word_4_distractors.npz' \
+    --shuffle_train_data \
+    --sender_hidden=100 \
+    --receiver_hidden=100 \
+    --sender_embedding=20 \
+    --receiver_embedding=20 \
+    --sender_cell='lstm' \
+    --receiver_cell='lstm' \
+    --sender_lr=0.001 \
+    --receiver_lr=0.001 \
+    --temperature=1.0 \
+    --mode='gs' \
+    --dump_msg_folder='data\messages\words' \
+    --random_seed=42 \
+    --data_seed=42 \
+    --checkpoint_freq=0 \
+    --validation_freq=5 \
+    --n_epochs=50 \
+    --batch_size=32 \
+    --optimizer='adam' \
+    --lr=0.0001 \
+    --update_freq=1 \
+    --vocab_size=17 \
+    --max_len=5 \
+    --evaluate \
+    --train_samples=12000 \
+    --validation_samples=4000 \
+    --test_samples=4000 \
+    --n_distractors=4

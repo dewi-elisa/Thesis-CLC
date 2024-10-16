@@ -14,9 +14,11 @@
 !train.py
 !util.py
 !requirements.txt
-!code articles/
 !train_words.sh
 !train_images.sh
+!train_words5.sh
+!train_images5.sh
+!plots.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
