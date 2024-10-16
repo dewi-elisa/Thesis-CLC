@@ -6,25 +6,6 @@
 import torch
 import torchrl
 import torch.nn as nn
-from transformers import BertTokenizer, BertModel
-
-
-def get_bert_embedding(sentences, tokenizer, model):
-    print(sentences)
-    # Tokenize sentence
-    inputs = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
-
-    # Get embeddings
-    with torch.no_grad():
-        outputs = model(**inputs)
-
-    # Get last hidden state
-    last_hidden_state = outputs.last_hidden_state
-
-    # Get sentence embeddings
-    cls_embedding = last_hidden_state[:, 0, :]
-
-    return cls_embedding
 
 
 class Sender(nn.Module):
@@ -32,18 +13,23 @@ class Sender(nn.Module):
         super(Sender, self).__init__()
         if images:
             self.images = True
-            self.num_cells = [10, 250, 100, 348, 200, 288, 150, 128]
-            self.conv = torchrl.modules.ConvNet(in_features=3, depth=8, num_cells=self.num_cells)
-            self.fc1 = nn.Linear(256*self.num_cells[-1], n_hidden)
-            self.n_features = n_features
+            self.conv = torchrl.modules.ConvNet(in_features=3,
+                                                depth=6,
+                                                num_cells=32,
+                                                strides=[1, 2, 1, 2, 1, 2],
+                                                kernel_sizes=3,
+                                                activation_class=torch.nn.ReLU,
+                                                norm_class=torch.nn.LazyBatchNorm2d)
+            self.fc1 = nn.Linear(5*5*32, n_hidden)
         else:
             self.images = False
             self.fc1 = nn.Linear(n_features, n_hidden)
 
     def forward(self, x, _aux_input=None):
-        batch_size = x.shape[0]
         if self.images:
-            x = x.reshape((-1, 3, 32, 32))
+            batch_size = x.shape[0]
+            image_size = 64
+            x = x.reshape((-1, 3, image_size, image_size))
             x = self.conv(x)
             x = x.reshape((batch_size, -1))
         x = self.fc1(x).tanh()
@@ -55,17 +41,23 @@ class Receiver(nn.Module):
         super(Receiver, self).__init__()
         if images:
             self.images = True
-            self.num_cells = [10, 250, 100, 348, 200, 288, 150, 128]
-            self.conv = torchrl.modules.ConvNet(in_features=3, depth=8, num_cells=self.num_cells)
-            self.fc1 = nn.Linear(256*self.num_cells[-1], linear_units)
+            self.conv = torchrl.modules.ConvNet(in_features=3,
+                                                depth=6,
+                                                num_cells=32,
+                                                strides=[1, 2, 1, 2, 1, 2],
+                                                kernel_sizes=3,
+                                                activation_class=torch.nn.ReLU,
+                                                norm_class=torch.nn.LazyBatchNorm2d)
+            self.fc1 = nn.Linear(5*5*32, linear_units)
         else:
             self.images = False
             self.fc1 = nn.Linear(n_features, linear_units)
 
     def forward(self, x, _input, _aux_input=None):
-        batch_size = _input.shape[0]
         if self.images:
-            _input = _input.reshape((-1, 3, 32, 32))
+            batch_size = _input.shape[0]
+            image_size = 64
+            _input = _input.reshape((-1, 3, image_size, image_size))
             _input = self.conv(_input)
             _input = _input.reshape((batch_size, 5, -1))
         embedded_input = self.fc1(_input).tanh()

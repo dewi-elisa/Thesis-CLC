@@ -1,23 +1,23 @@
 #!/bin/bash
 
 python train.py \
-    --load_data_path='/Users/dewi-elisa/Documents/Uni_uva/scriptie CLC/Thesis-CLC/Code/data/data_word_4_distractors.npz' \
+    --load_data_path='data\64x64 12000-4000-4000\data_word_4_distractors.npz' \
     --shuffle_train_data \
-    --sender_hidden=50 \
-    --receiver_hidden=50 \
-    --sender_embedding=10 \
-    --receiver_embedding=10 \
+    --sender_hidden=100 \
+    --receiver_hidden=100 \
+    --sender_embedding=20 \
+    --receiver_embedding=20 \
     --sender_cell='lstm' \
     --receiver_cell='lstm' \
     --sender_lr=0.001 \
     --receiver_lr=0.001 \
     --temperature=1.0 \
     --mode='gs' \
-    --dump_msg_folder='/Users/dewi-elisa/Documents/Uni_uva/scriptie CLC/Thesis-CLC/Code/data/messages/words' \
+    --dump_msg_folder='data\messages\words' \
     --random_seed=42 \
     --data_seed=42 \
     --checkpoint_freq=0 \
-    --validation_freq=1 \
+    --validation_freq=5 \
     --n_epochs=50 \
     --batch_size=32 \
     --optimizer='adam' \
@@ -25,4 +25,8 @@ python train.py \
     --update_freq=1 \
     --vocab_size=100 \
     --max_len=10 \
-    --evaluate
+    --evaluate \
+    --train_samples=12000 \
+    --validation_samples=4000 \
+    --test_samples=4000 \
+    --n_distractors=4

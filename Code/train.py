@@ -319,6 +319,11 @@ def main(params):
     callbacks = [core.ConsoleLogger(as_json=True)]
     if opts.mode.lower() == "gs":
         callbacks.append(core.TemperatureUpdater(agent=sender, decay=0.9, minimum=0.1))
+        topsim = core.TopographicSimilarity(is_gumbel=True)
+    else:    
+        topsim = core.TopographicSimilarity()
+    callbacks.append(topsim)
+
     trainer = core.Trainer(
         game=game,
         optimizer=optimizer,
@@ -340,6 +345,8 @@ def main(params):
         ) = dump_sender_receiver(
             game, test_data, is_gs, variable_length=True, device=device
         )
+        receiver_inputs = move_to(receiver_inputs, device)
+        messages = move_to(messages, device)
 
         receiver_outputs = move_to(receiver_outputs, device)
         labels = move_to(labels, device)
@@ -362,8 +369,15 @@ def main(params):
 
         print(f"| Accuracy on test set: {accuracy}")
 
-        compute_mi_input_msgs(sender_inputs, messages)
+        sender_inputs = move_to(sender_inputs, 'cpu')
+        messages = move_to(messages, 'cpu')
+        # make all messages equal length
+        _messages = torch.zeros((len(messages), opts.max_len+1))
+        for i, message in enumerate(messages):
+            _messages[i, :len(message)] = message
+        print(f"| TopSim on test set: {topsim.compute_topsim(sender_inputs, _messages)}")
 
+        compute_mi_input_msgs(sender_inputs, messages)
         print(f"entropy sender inputs {entropy(sender_inputs)}")
         print(f"mi sender inputs msgs {mutual_info(sender_inputs, messages)}")
 
@@ -376,11 +390,11 @@ def main(params):
                 # f"messages_{opts.perceptual_dimensions}_vocab_{opts.vocab_size}"
                 f"_maxlen_{opts.max_len}_bsize_{opts.batch_size}"
                 f"_n_distractors_{opts.n_distractors}_train_size_{opts.train_samples}"
-                f"_valid_size_{opts.validation_samples}_test_size_{opts.test_samples}"
-                f"_slr_{opts.sender_lr}_rlr_{opts.receiver_lr}_shidden_{opts.sender_hidden}"
-                f"_rhidden_{opts.receiver_hidden}_semb_{opts.sender_embedding}"
-                f"_remb_{opts.receiver_embedding}_mode_{opts.mode}"
-                f"_scell_{opts.sender_cell}_rcell_{opts.receiver_cell}.msg"
+                # f"_valid_size_{opts.validation_samples}_test_size_{opts.test_samples}"
+                # f"_slr_{opts.sender_lr}_rlr_{opts.receiver_lr}_shidden_{opts.sender_hidden}"
+                # f"_rhidden_{opts.receiver_hidden}_semb_{opts.sender_embedding}"
+                # f"_remb_{opts.receiver_embedding}_mode_{opts.mode}"
+                # f"_scell_{opts.sender_cell}_rcell_{opts.receiver_cell}.msg"
             )
 
             output_file = opts.dump_msg_folder / output_msg

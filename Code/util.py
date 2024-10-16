@@ -9,6 +9,7 @@ import numpy as np
 import torch
 
 from egg.core.util import move_to
+import egg.core as core
 
 
 def compute_binomial(n, k):
